@@ -18,3 +18,6 @@ Terminal based Java app which gives live updates on IrishRail trains serving a s
 - `refresh` refreshes the current station with the latest data.
 - Typing in the name of another station will print the data of trains serving this newly entered station.
 - `exit` exits the program.
+
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/SC1.png "Inital Prompt")
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/SC2.png "Example of Data")
