@@ -1,5 +1,5 @@
 # LiveDART
-Java app which gives live updates on a specified station
+Terminal based Java app which gives live updates on IrishRail trains serving a specified station including arrival time and destination.
 
 ## To Run: 
 
