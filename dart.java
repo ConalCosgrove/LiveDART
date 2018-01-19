@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,12 +23,14 @@ public class dart implements Runnable{
 	
 	Calendar d;
 	static String station; 
+	static String stationNormal;
 	
 	static String url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=perse&NumMins=30";
 	static String urlStart = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=";
 	static String urlEnd = "&NumMins=30";
 	static String stationGet = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
 	public static Map<String,String> stationsMap = new HashMap<String,String>();
+	public static ArrayList<String> capitalStations = new ArrayList<String>();
 	public static Thread t;
 	public static Thread t2;
 	public static boolean exit;
@@ -53,8 +56,11 @@ public class dart implements Runnable{
 					Element e = (Element) n;
 					
 					String code = e.getElementsByTagName("StationCode").item(0).getTextContent();
+					String capitalDesc = e.getElementsByTagName("StationDesc").item(0).getTextContent();
 					String desc = e.getElementsByTagName("StationDesc").item(0).getTextContent().toLowerCase();
 					stationsMap.put(desc, code);
+					capitalStations.add(capitalDesc);
+
 				}
 			}
 		}catch(Exception e){
@@ -62,14 +68,26 @@ public class dart implements Runnable{
 		}
 		
 		System.out.println("What station would you like information on?");
+		System.out.println("For a list of stations type 'stations'");
 		
 		if(input.hasNext()){
-			station = input.nextLine().toLowerCase();
+			stationNormal = input.nextLine();
+			station = stationNormal.toLowerCase();
 		}
 		
 		
 		
 		try{
+				if(station.equals("stations")){
+					printInput("Stations:\n");
+					for(String value : capitalStations){
+						printInput(value + "\n");
+					}
+					System.out.println("What station would you like information on?");
+					if(input.hasNext()){
+						station = input.nextLine().toLowerCase();
+					}
+				}
 				
 				if(stationsMap.containsKey(station)){
 					url = urlStart + stationsMap.get(station) + urlEnd;
@@ -123,7 +141,7 @@ public class dart implements Runnable{
 				sortTrainsByDue(trains);
 				
 				System.out.println("\n**************************************************************\n");
-				String s = "All Trains Serving " + station + " due in the next 30 mins \n\n";
+				String s = "All Trains Serving " + stationNormal + " due in the next 30 mins \n\n";
 				printInput(s);
 				for(int i = 0; i < trains.length; i++){
 					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n";
@@ -162,16 +180,6 @@ public class dart implements Runnable{
 		
 	}
 	
-	public void printInput(String input){
-		for(int i = 0; i < input.length(); i++){
-			System.out.print(input.charAt(i));
-			try{
-				Thread.sleep(10);
-			}catch(Exception e){
-
-			}
-		}
-	}
 	public void sortTrainsByDue(Train[] trains){
 		
 		for(int i = 0; i < trains.length; i++){
@@ -199,5 +207,16 @@ public class dart implements Runnable{
 	
 	public static void quit(){
 		exit = true;
+	}
+
+	public static void printInput(String input){
+		for(int i = 0; i < input.length(); i++){
+			System.out.print(input.charAt(i));
+			try{
+				Thread.sleep(10);
+			}catch(Exception e){
+
+			}
+		}
 	}
 }
