@@ -67,7 +67,7 @@ public class dart implements Runnable{
 			
 		}
 		
-		System.out.println("What station would you like information on?");
+		System.out.println("Which station would you like information on?");
 		System.out.println("For a list of stations type 'stations'");
 		
 		if(input.hasNext()){
@@ -83,7 +83,7 @@ public class dart implements Runnable{
 					for(String value : capitalStations){
 						printInput(value + "\n");
 					}
-					System.out.println("What station would you like information on?");
+					System.out.println("Which station would you like information on?");
 					if(input.hasNext()){
 						station = input.nextLine().toLowerCase();
 					}
