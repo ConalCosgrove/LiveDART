@@ -82,8 +82,8 @@ public class dart implements Runnable{
 		try{
 				if(station.equals("stations")){
 					printInput("Stations:\n");
-					for(String value : stationsMap.values()){
-						printInput(value + "|\n");
+					for(String value : capitalStations){
+						printInput(value + "\n");
 					}
 					System.out.println("Which station would you like information on?");
 					if(input.hasNext()){
