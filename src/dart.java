@@ -56,6 +56,7 @@ public class dart implements Runnable{
 					Element e = (Element) n;
 					
 					String code = e.getElementsByTagName("StationCode").item(0).getTextContent();
+					code = code.trim();
 					String capitalDesc = e.getElementsByTagName("StationDesc").item(0).getTextContent();
 					String desc = e.getElementsByTagName("StationDesc").item(0).getTextContent().toLowerCase();
 					stationsMap.put(desc, code);
@@ -65,6 +66,7 @@ public class dart implements Runnable{
 			}
 		}catch(Exception e){
 			System.out.println("Error, please check network connection");
+			System.exit(0);
 		}
 		
 		System.out.println("Which station would you like information on?");
@@ -80,8 +82,8 @@ public class dart implements Runnable{
 		try{
 				if(station.equals("stations")){
 					printInput("Stations:\n");
-					for(String value : capitalStations){
-						printInput(value + "\n");
+					for(String value : stationsMap.values()){
+						printInput(value + "|\n");
 					}
 					System.out.println("Which station would you like information on?");
 					if(input.hasNext()){
@@ -91,6 +93,7 @@ public class dart implements Runnable{
 				
 				if(stationsMap.containsKey(station)){
 					url = urlStart + stationsMap.get(station) + urlEnd;
+
 					
 				}else{
 					System.out.println("Did not recognise station entered, defaulting to Dublin Pearse");
