@@ -4,7 +4,7 @@ Terminal based Java app which gives live updates on IrishRail trains serving a s
 ## To Run: 
 
 - Clone this repo
-- In terminal navigate to /LiveDART directory 
+- In terminal, navigate to `/LiveDART/classes` directory 
 - Run `java dart` in the command line
 - If file does not have sufficient permissions to run, use command `chmod 757 dart.class`
 
@@ -19,5 +19,5 @@ Terminal based Java app which gives live updates on IrishRail trains serving a s
 - Typing in the name of another station will print the data of trains serving this newly entered station.
 - `exit` exits the program.
 
-![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/SC1.png "Inital Prompt")
-![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/SC2.png "Example of Data")
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/screenshots/SC1.png "Inital Prompt")
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/screenshots/SC2.png "Example of Data")
