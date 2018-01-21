@@ -64,7 +64,7 @@ public class dart implements Runnable{
 				}
 			}
 		}catch(Exception e){
-			
+			System.out.println("Error, please check network connection");
 		}
 		
 		System.out.println("Which station would you like information on?");
