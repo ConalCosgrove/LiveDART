@@ -19,12 +19,14 @@ public class inputChecker implements Runnable{
 			if(scan.hasNext()){
 				try{
 					
-					String stat = scan.nextLine().toLowerCase();
+					String statin = scan.nextLine();
+					String stat = statin.toLowerCase();
 					if(dart.stationsMap.containsKey(stat)){
 						url = urlStart + dart.stationsMap.get(stat) + urlEnd;
 						//System.out.println(stat);
-						dart.station = stat;
+						dart.station = statin;
 						dart.url = url;
+						
 						dart.t.interrupt();
 						
 						

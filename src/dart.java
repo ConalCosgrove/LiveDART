@@ -144,7 +144,7 @@ public class dart implements Runnable{
 				sortTrainsByDue(trains);
 				
 				System.out.println("\n**************************************************************\n");
-				String s = "All Trains Serving " + stationNormal + " due in the next 30 mins \n\n";
+				String s = "All Trains Serving " + station + " due in the next 30 mins \n\n";
 				printInput(s);
 				for(int i = 0; i < trains.length; i++){
 					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n";
