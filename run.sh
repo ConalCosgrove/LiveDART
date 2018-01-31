@@ -1,1 +1,1 @@
-java classes/dart
+(cd classes; java dart)
