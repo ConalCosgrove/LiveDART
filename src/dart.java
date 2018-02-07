@@ -35,82 +35,9 @@ public class dart implements Runnable{
 	public static Thread t2;
 	public static boolean exit;
 	static Scanner input = new Scanner(System.in);
-	
-	public static boolean stationChanged = false;
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		exit = false;
-		try{
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(new URL(stationGet).openStream());
-			doc.getDocumentElement().normalize();
-			
-			NodeList list = doc.getElementsByTagName("objStation");
-			
-			for(int i = 0; i < list.getLength(); i++ ){
-				Node n = list.item(i);
-				if(n.getNodeType() == Node.ELEMENT_NODE){
-					Element e = (Element) n;
-					
-					String code = e.getElementsByTagName("StationCode").item(0).getTextContent();
-					code = code.trim();
-					String capitalDesc = e.getElementsByTagName("StationDesc").item(0).getTextContent();
-					String desc = e.getElementsByTagName("StationDesc").item(0).getTextContent().toLowerCase();
-					stationsMap.put(desc, code);
-					capitalStations.add(capitalDesc);
 
-				}
-			}
-		}catch(Exception e){
-			System.out.println("Error, please check network connection");
-			System.exit(0);
-		}
-		
-		System.out.println("Which station would you like information on?");
-		System.out.println("For a list of stations type 'stations'");
-		
-		if(input.hasNext()){
-			stationNormal = input.nextLine();
-			station = stationNormal.toLowerCase();
-		}
-		
-		
-		
-		try{
-				if(station.equals("stations")){
-					printInput("Stations:\n");
-					for(String value : capitalStations){
-						printInput(value + "\n");
-					}
-					System.out.println("Which station would you like information on?");
-					if(input.hasNext()){
-						station = input.nextLine().toLowerCase();
-					}
-				}
-				
-				if(stationsMap.containsKey(station)){
-					url = urlStart + stationsMap.get(station) + urlEnd;
 
-					
-				}else{
-					System.out.println("Did not recognise station entered, defaulting to Dublin Pearse");
-					station = "Dublin Pearse";
-				}
-			}catch(Exception e){
-				System.out.println("No station specified, defaulting to Dublin Pearse");
-				station = "Dublin Pearse";
-			}
-		
-		t = new Thread(new dart());
-		t.start();
-		
-		t2 = new Thread(new inputChecker());
-		t2.start();
 
-}
 
 	@Override
 	public void run() {
@@ -146,18 +73,25 @@ public class dart implements Runnable{
 				System.out.println("\n**************************************************************\n");
 				String s = "All Trains Serving " + station + " due in the next 30 mins \n\n";
 				printInput(s);
+
+				FileWriter out = new FileWriter("data.txt");
 				for(int i = 0; i < trains.length; i++){
 					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n";
+					out.write(toPrint);
 					printInput(toPrint);
+
 					toPrint = (trains[i].getDue() + " mins \n \n");
+					out.write(toPrint);
 					printInput(toPrint);
+					
 					
 					
 				}
-				
+				out.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println("Error, please check your network connection");
+				System.out.println(e);
 			} 
 			
 			d = Calendar.getInstance();
