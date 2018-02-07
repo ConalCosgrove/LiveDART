@@ -22,19 +22,16 @@ public class dart implements Runnable{
 
 	
 	Calendar d;
-	static String station; 
-	static String stationNormal;
 	
-	static String url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=perse&NumMins=30";
-	static String urlStart = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=";
-	static String urlEnd = "&NumMins=30";
-	static String stationGet = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
-	public static Map<String,String> stationsMap = new HashMap<String,String>();
-	public static ArrayList<String> capitalStations = new ArrayList<String>();
-	public static Thread t;
-	public static Thread t2;
-	public static boolean exit;
-	static Scanner input = new Scanner(System.in);
+	static String stationNormal = Controller.stationNormal;
+	
+
+	public static Map<String,String> stationsMap = Controller.stationsMap;
+	public static ArrayList<String> capitalStations = Controller.capitalStations;
+	public static Thread t = Controller.t;
+	public static Thread t2 = Controller.t2;
+	public static boolean exit = Controller.exit;
+
 
 
 
@@ -48,7 +45,7 @@ public class dart implements Runnable{
 			try {
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder builder = factory.newDocumentBuilder();
-				doc = builder.parse(new URL(url).openStream());
+				doc = builder.parse(new URL(Controller.url).openStream());
 				doc.getDocumentElement().normalize();
 				//System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
 				NodeList nList = doc.getElementsByTagName("objStationData");
@@ -71,7 +68,7 @@ public class dart implements Runnable{
 				sortTrainsByDue(trains);
 				
 				System.out.println("\n**************************************************************\n");
-				String s = "All Trains Serving " + station + " due in the next 30 mins \n\n";
+				String s = "All Trains Serving " + Controller.station + " due in the next 30 mins \n\n";
 				printInput(s);
 
 				FileWriter out = new FileWriter("data.txt");
@@ -103,7 +100,7 @@ public class dart implements Runnable{
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				if(!exit){
-					System.out.println("Getting station info for " + station);
+					System.out.println("Getting station info for " + Controller.station);
 				}
 			}
 		}

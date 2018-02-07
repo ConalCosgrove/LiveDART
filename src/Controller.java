@@ -1,5 +1,6 @@
 import javax.xml.parsers.*;
 import javafx.application.Application;
+import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -18,15 +19,15 @@ import java.util.Scanner;
 import java.lang.String;	
 
 
-public class Controller{
+public class Controller extends Application{
 
 	Calendar d;
-	static String station; 
-	static String stationNormal;
-	static String url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=perse&NumMins=30";
-	static String urlStart = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=";
-	static String urlEnd = "&NumMins=30";
-	static String stationGet = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
+	public static String station; 
+	public static String stationNormal;
+	public static String url = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=perse&NumMins=30";
+	public static String urlStart = "http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=";
+	public static String urlEnd = "&NumMins=30";
+	public static String stationGet = "http://api.irishrail.ie/realtime/realtime.asmx/getAllStationsXML";
 	public static Map<String,String> stationsMap = new HashMap<String,String>();
 	public static ArrayList<String> capitalStations = new ArrayList<String>();
 	public static Thread t;
@@ -34,8 +35,8 @@ public class Controller{
 	public static boolean exit;
 	static Scanner input = new Scanner(System.in);
 
-
-	public static void main(String[] args) {
+	@Override
+	public void start(Stage primaryStage) {
 		// TODO Auto-generated method stub
 		
 		exit = false;
@@ -107,6 +108,10 @@ public class Controller{
 		t2 = new Thread(new inputChecker());
 		t2.start();
 
+	}
+
+	public static void main(String[] args){
+		launch(args);
 	}
 
 

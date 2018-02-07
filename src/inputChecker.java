@@ -21,21 +21,21 @@ public class inputChecker implements Runnable{
 					
 					String statin = scan.nextLine();
 					String stat = statin.toLowerCase();
-					if(dart.stationsMap.containsKey(stat)){
-						url = urlStart + dart.stationsMap.get(stat) + urlEnd;
+					if(Controller.stationsMap.containsKey(stat)){
+						url = urlStart + Controller.stationsMap.get(stat) + urlEnd;
 						//System.out.println(stat);
-						dart.station = statin;
-						dart.url = url;
+						Controller.station = statin;
+						Controller.url = url;
 						
-						dart.t.interrupt();
+						Controller.t.interrupt();
 						
 						
 					}else if(stat.equals("exit")){
 						dart.quit();
 						quit = true;
-						dart.t.interrupt();
+						Controller.t.interrupt();
 					}else if(stat.equals("refresh")){
-						dart.t.interrupt();
+						Controller.t.interrupt();
 					}
 					else{
 						System.out.println("Did not recognise station entered");
@@ -43,6 +43,7 @@ public class inputChecker implements Runnable{
 					}
 				}catch(Exception e){
 					System.out.println("No station specified");
+					System.out.print(e);
 					
 				}
 			}
