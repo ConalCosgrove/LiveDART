@@ -52,19 +52,19 @@ public class dart implements Runnable{
 				DocumentBuilder builder = factory.newDocumentBuilder();
 				doc = builder.parse(new URL(Controller.url).openStream());
 				doc.getDocumentElement().normalize();
-				//System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
+				////System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
 				NodeList nList = doc.getElementsByTagName("objStationData");
 				trains = new Train[nList.getLength()];
 				
 				for(int i = 0; i < nList.getLength(); i++){
 					Node n = nList.item(i);
-					//System.out.println(n.getNodeName());
+					////System.out.println(n.getNodeName());
 					if(n.getNodeType() == Node.ELEMENT_NODE){
 						Element e = (Element) n;
 						
 						Train trai = new Train(e.getElementsByTagName("Destination").item(0).getTextContent(),e.getElementsByTagName("Duein").item(0).getTextContent(),e.getElementsByTagName("Exparrival").item(0).getTextContent());
 						trains[i] = trai;
-						//System.out.println(e.getElementsByTagName("Destination").item(0).getTextContent() + " " + e.getElementsByTagName("Duein").item(0).getTextContent());
+						////System.out.println(e.getElementsByTagName("Destination").item(0).getTextContent() + " " + e.getElementsByTagName("Duein").item(0).getTextContent());
 						
 						
 					}
@@ -72,7 +72,7 @@ public class dart implements Runnable{
 				}
 				sortTrainsByDue(trains);
 				
-				System.out.println("\n**************************************************************\n");
+				//System.out.println("\n**************************************************************\n");
 
 				Task<Void> task = new Task<Void>() {
 
@@ -93,7 +93,6 @@ public class dart implements Runnable{
 				String s = "All Trains Serving " + Controller.station + " due in the next " +Controller.numberOfMinutes + " mins\n\n";
 				printInput(s);
 
-				
 				for(int i = 0; i < trains.length; i++){
 					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n" +trains[i].getDue() + " mins\n\n";
 					
@@ -109,8 +108,8 @@ public class dart implements Runnable{
 			
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				System.out.println("Error, please check your network connection");
-				System.out.println(e);
+				//System.out.println("Error, please check your network connection");
+				//System.out.println(e);
 			} 
 			
 			d = Calendar.getInstance();
@@ -123,7 +122,7 @@ public class dart implements Runnable{
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				if(!exit){
-					System.out.println("Getting station info for " + Controller.station);
+					//System.out.println("Getting station info for " + Controller.station);
 				}
 			}
 		}
@@ -154,7 +153,7 @@ public class dart implements Runnable{
 			if(smallest != i){
 				Train temp = trains[i];
 				trains[i] = trains[smallest];
-				//System.out.println("Swapped " + trains[i].getDest() + " with " + temp.getDest());
+				////System.out.println("Swapped " + trains[i].getDest() + " with " + temp.getDest());
 				trains[smallest] = temp;
 			}
 			
@@ -187,10 +186,10 @@ public class dart implements Runnable{
 	 	};
 	 	task.run();
 
-	 	System.out.print(input);
+	 	//System.out.print(input);
 	 	/*
 		for(int i = 0; i < input.length(); i++){
-			System.out.print(input.charAt(i));
+			//System.out.print(input.charAt(i));
 			
 			try{
 				Thread.sleep(10);

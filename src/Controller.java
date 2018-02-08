@@ -55,7 +55,7 @@ public class Controller extends Application{
 		
 		Group root = new Group();
 		Scene scene = new Scene(root, 400, 750);
-		
+		station = "Dublin Pearse";
 		
 		exit = false;
 		try{
@@ -81,7 +81,7 @@ public class Controller extends Application{
 				}
 			}
 		}catch(Exception e){
-			System.out.println("Error, please check network connection");
+			//System.out.println("Error, please check network connection");
 			System.exit(0);
 		}
 		
@@ -92,6 +92,8 @@ public class Controller extends Application{
 		listView.setPrefSize( 400, 700 );
 		
 		stationPicker.setPrefSize(400,50);
+		stationPicker.getSelectionModel().select(capitalStations.indexOf(station));
+
 		stationPicker.valueProperty().addListener(new ChangeListener<String>() {
 	        @Override public void changed(ObservableValue ov, String prev, String t1) {
 	          url = urlStart + Controller.stationsMap.get(t1.toLowerCase()) + urlEnd;
@@ -108,13 +110,15 @@ public class Controller extends Application{
 		primaryStage.setResizable(false);
         primaryStage.show();
 
-		System.out.println("Which station would you like information on?");
-		System.out.println("For a list of stations type 'stations'");
+		//System.out.println("Which station would you like information on?");
+		//System.out.println("For a list of stations type 'stations'");
 		
-		if(input.hasNext()){
+		/*if(input.hasNext()){
 			stationNormal = input.nextLine();
 			station = stationNormal.toLowerCase();
-		}
+		}*/
+
+		
 
 		try{
 				if(station.equals("stations")){
@@ -122,7 +126,7 @@ public class Controller extends Application{
 					for(String value : capitalStations){
 						dart.printInput(value + "\n");
 					}
-					System.out.println("Which station would you like information on?");
+					//System.out.println("Which station would you like information on?");
 					if(input.hasNext()){
 						station = input.nextLine().toLowerCase();
 					}
@@ -133,11 +137,11 @@ public class Controller extends Application{
 
 					
 				}else{
-					System.out.println("Did not recognise station entered, defaulting to Dublin Pearse");
+					//System.out.println("Did not recognise station entered, defaulting to Dublin Pearse");
 					station = "Dublin Pearse";
 				}
 			}catch(Exception e){
-				System.out.println("No station specified, defaulting to Dublin Pearse");
+				//System.out.println("No station specified, defaulting to Dublin Pearse");
 				station = "Dublin Pearse";
 			}
 		
