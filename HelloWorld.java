@@ -18,7 +18,7 @@ public class HelloWorld extends Application
         btn.setText("Say 'Hello World'");
 
         ListView<String> listView = new ListView<String>();
-        listView.getItems().add("Trains");
+        
 
         try{
             BufferedReader in = new BufferedReader(new FileReader("data.txt"));
@@ -36,12 +36,14 @@ public class HelloWorld extends Application
             public void handle(ActionEvent event) 
             {
                 System.out.println("Hello World!");
+                listView.getItems().add("Trains");
             }
         });
 
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
         root.getChildren().add(listView);
+        root.getChildren().add(btn);
+        
 
         Scene scene = new Scene(root, 300, 250);
 
@@ -50,8 +52,10 @@ public class HelloWorld extends Application
         primaryStage.show();
     }
 
-    public void addTrains(){
 
+
+    public static void main(String[] args) 
+    {
+        launch(args);
     }
-
 }

@@ -17,6 +17,9 @@ import java.util.Map;
 import java.util.Scanner;
 import java.lang.String;
 
+import javafx.scene.control.ListView;
+import javafx.concurrent.Task;
+import javafx.application.Platform;
 
 public class dart implements Runnable{
 
@@ -31,10 +34,12 @@ public class dart implements Runnable{
 	public static Thread t = Controller.t;
 	public static Thread t2 = Controller.t2;
 	public static boolean exit = Controller.exit;
+	ListView<String> list;
 
 
-
-
+	public dart(){
+		
+	}
 
 	@Override
 	public void run() {
@@ -68,23 +73,40 @@ public class dart implements Runnable{
 				sortTrainsByDue(trains);
 				
 				System.out.println("\n**************************************************************\n");
-				String s = "All Trains Serving " + Controller.station + " due in the next 30 mins \n\n";
+
+				Task<Void> task = new Task<Void>() {
+
+	    			@Override protected Void call() throws Exception {
+
+			    		Platform.runLater(new Runnable() {
+		                	@Override public void run() {
+		                    	Controller.listView.getItems().clear();
+		                	}
+		             	});
+		       
+		        		return null;
+	    			}
+	 			};
+	 			
+	 			task.run();
+
+				String s = "All Trains Serving " + Controller.station + " due in the next " +Controller.numberOfMinutes + " mins\n\n";
 				printInput(s);
 
-				FileWriter out = new FileWriter("data.txt");
+				
 				for(int i = 0; i < trains.length; i++){
-					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n";
-					out.write(toPrint);
-					printInput(toPrint);
+					String toPrint = "Train to " + trains[i].getDest() + " at " + trains[i].getExpArr() +"\n" +trains[i].getDue() + " mins\n\n";
+					
+					
 
-					toPrint = (trains[i].getDue() + " mins \n \n");
-					out.write(toPrint);
+					
+					
 					printInput(toPrint);
 					
 					
 					
 				}
-				out.close();
+			
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				System.out.println("Error, please check your network connection");
@@ -93,7 +115,8 @@ public class dart implements Runnable{
 			
 			d = Calendar.getInstance();
 			
-			System.out.println("Last updated: " + d.get(Calendar.HOUR_OF_DAY) + ":" + ((d.get(Calendar.MINUTE)<10)?("0" + d.get(Calendar.MINUTE)):(d.get(Calendar.MINUTE))) + ((d.get(Calendar.MINUTE) >= 12)?(" PM"):(" AM")) );
+			String lupdated = ("Last updated: " + d.get(Calendar.HOUR_OF_DAY) + ":" + ((d.get(Calendar.MINUTE)<10)?("0" + d.get(Calendar.MINUTE)):(d.get(Calendar.MINUTE))) + ((d.get(Calendar.MINUTE) >= 12)?(" PM"):(" AM")) );
+			printInput(lupdated);
 			try {
 				Thread.sleep(120000);
 				
@@ -144,13 +167,37 @@ public class dart implements Runnable{
 	}
 
 	public static void printInput(String input){
+		
+		
+		
+		Task<Void> task = new Task<Void>() {
+
+	    	@Override protected Void call() throws Exception {
+
+	    		Platform.runLater(new Runnable() {
+                	@Override public void run() {
+                    	Controller.listView.getItems().add(input);
+                	}
+             	});
+		        
+
+		
+		        return null;
+	    	}
+	 	};
+	 	task.run();
+
+	 	System.out.print(input);
+	 	/*
 		for(int i = 0; i < input.length(); i++){
 			System.out.print(input.charAt(i));
+			
 			try{
 				Thread.sleep(10);
 			}catch(Exception e){
 
 			}
 		}
+		*/
 	}
 }
