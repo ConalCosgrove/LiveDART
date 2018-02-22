@@ -1,3 +1,4 @@
+
 import javax.xml.parsers.*;
 
 import org.w3c.dom.Document;
@@ -117,7 +118,7 @@ public class dart implements Runnable{
 			String lupdated = ("Last updated: " + d.get(Calendar.HOUR_OF_DAY) + ":" + ((d.get(Calendar.MINUTE)<10)?("0" + d.get(Calendar.MINUTE)):(d.get(Calendar.MINUTE))) + ((d.get(Calendar.MINUTE) >= 12)?(" PM"):(" AM")) );
 			printInput(lupdated);
 			try {
-				Thread.sleep(120000);
+				Thread.sleep(30000);
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block

@@ -1,3 +1,4 @@
+
 import javax.xml.parsers.*;
 
 import javafx.application.Application;
@@ -91,6 +92,7 @@ public class Controller extends Application{
 		
 		listView.setPrefSize( 400, 700 );
 		
+
 		stationPicker.setPrefSize(400,50);
 		stationPicker.getSelectionModel().select(capitalStations.indexOf(station));
 
