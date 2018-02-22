@@ -15,7 +15,16 @@ Terminal based Java app which gives live updates on IrishRail trains serving a s
 - Run `java dart` in the command line
 - If file does not have sufficient permissions to run, use command `chmod 757 dart.class`
 
-## In App: 
+
+## In App:
+
+- You will be be greeted with the initial UI, defaulting to Dublin Pearse.
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/screenshots/SCUI1.png "Inital Screen")
+
+- Use the dropdown menu to select your desired station and the list of trains will populate.
+![alt text](https://github.com/ConalCosgrove/LiveDART/blob/master/screenshots/SCUI2.png "Using Dropdown")
+
+## In Console: 
 
 - You will be prompted to enter a station name, a full list of stations can be found by typing `stations` at this point.
 - Once a station is entered the app should produce a list of any trains serving the chosen station in the next 30 mins.
